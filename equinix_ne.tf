@@ -22,6 +22,7 @@ resource "equinix_network_device" "router" {
   interface_count   = var.eqx_ne_device_interface_count
   core_count        = var.eqx_ne_device_core_count
   version           = var.eqx_ne_device_version
+  acl_template_id   = equinix_network_acl_template.acl.id
   self_managed      = false
 }
 
@@ -29,21 +30,21 @@ locals {
   router_id = var.eqx_ne_create_ne_device ? equinix_network_device.router[0].id : var.eqx_ne_device_id
 }
 
-resource "equinix_network_ssh_user" "router" {
-  count = var.eqx_ne_create_ne_device ? 1 : 0
-
-  username  = var.eqx_ne_ssh_user
-  password  = var.eqx_ne_ssh_pwd
-  device_ids = [ local.router_id ]
+data "external" "myipaddr" {
+  program = ["bash", "-c", "curl -s 'https://ipinfo.io/json'"]
 }
 
-resource "equinix_network_bgp" "aws" {
-  connection_id       = equinix_ecx_l2_connection.aws.id
-  local_ip_address    = var.aws_dx_bgp_equinix_side_address
-  local_asn           = var.aws_dx_bgp_equinix_side_asn
-  remote_ip_address   = cidrhost(var.aws_dx_bgp_amazon_address,1)
-  remote_asn          = 64512 // Default AWS ASN for the Direct Connect Gateway if you don't choose one
-  authentication_key  = var.aws_dx_bgp_authkey
+
+resource "equinix_network_acl_template" "acl" {
+  name        = var.eqx_ne_acl_template_name
+  description = "Configure device automatically"
+
+  inbound_rule {
+    subnets  = ["${data.external.myipaddr.result.ip}/32"]
+    protocol = "TCP"
+    src_port = "any"
+    dst_port = "22"
+  }
 }
 
 resource "equinix_network_bgp" "gcp" {
