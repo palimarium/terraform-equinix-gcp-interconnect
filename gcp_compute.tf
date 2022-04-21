@@ -30,7 +30,5 @@ resource "google_compute_instance" "gcp-vm" {
      nat_ip = google_compute_address.gcp-ip.address
    }
  }
-
- metadata_startup_script = replace(file("vm_userdata.sh"), "<INT_IP>", var.aws_vm_address)
  
 }

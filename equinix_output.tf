@@ -2,10 +2,6 @@
  * Terraform output variables for Equinix.
  */
 
-output "equinix_fabric_l2_aws_connection_id" {
-  value = equinix_ecx_l2_connection.aws.id
-}
-
 output "equinix_fabric_l2_gcp_connection_id" {
   value = equinix_ecx_l2_connection.gcp.id
 }

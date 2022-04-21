@@ -15,30 +15,6 @@ variable eqx_fabric_notification_users {
   description = "A list of email addresses that would be notified when there are any updates on this connection"
 }
 
-variable eqx_fabric_aws_primary_connection_name {
-  description = "Equinix Fabric connection name for AWS"
-}
-
-variable eqx_fabric_aws_speed {
-  description = "speed for the Equinix Fabric connection, must be allowed by the platform and seller"
-}
-
-variable eqx_fabric_aws_speed_unit {
-  description = "MB / GB, must be allowed by the platform and the seller"
-}
-
-variable eqx_fabric_aws_seller_region {
-  description = "The region in which the seller port (AWS) resides"
-}
-
-variable eqx_fabric_aws_seller_metro_code {
-  description = "Seller metro to connect to"
-}
-
-variable eqx_fabric_aws_auth_key {
-  description = "AWS Account ID"
-}
-
 variable eqx_fabric_gcp_primary_connection_name {
   description = "Equinix Fabric connection name for GCP"
 }
@@ -89,6 +65,10 @@ variable eqx_ne_device_metro_code {
 
 variable eqx_ne_device_package_code {
   description = "Device software package code"
+}
+
+variable eqx_ne_acl_template_name {
+  description = "Name of the new ACL template to be attached to the NE device"
 }
 
 variable eqx_ne_device_term_length {

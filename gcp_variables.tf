@@ -1,9 +1,6 @@
 /*
  * Terraform variable declarations for GCP.
  */
-variable gcp_credentials_file_path {
-  description = "Locate the GCP credentials .json file"
-}
 
 variable gcp_project_id {
   description = "GCP Project ID"
