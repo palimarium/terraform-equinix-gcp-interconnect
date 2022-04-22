@@ -1,2 +1,2 @@
-auth_token = ""
-project_id = ""
+#auth_token = ""
+#project_id = ""
