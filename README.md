@@ -60,9 +60,11 @@ Required steps to setup your environment for the lab:
    terraform plan
    terraform apply -auto-approve
 
+![terraform apply equinix edge](/docs/images/terraform-apply-equinix-edge.png?raw=true "terraform apply equinix edge")   
+
 ## B) Setup Equinix Metal
 
-1. Enter [tf-equinix-metal-setup](/tf-equinix-metal-setup/) directory and use your text editor to set the required parameters. Only the ones with no default value are necessary, the others can be left as is.
+1. Enter [tf-equinix-metal-setup](/tf-equinix-metal-setup/) directory and use your text editor to set the required parameters.
 
    ```sh
    cd tf-equinix-metal-setup
@@ -75,7 +77,33 @@ Required steps to setup your environment for the lab:
    terraform plan
    terraform apply -auto-approve
 
-## C) Equinix Metal to Equinix Fabric, BGP Configuration
+![terraform apply equinix metal](/docs/images/terraform-apply-equinix-metal.png?raw=true "terraform apply equinix metal")
 
 
+## C) Setting Up a Shared Port
 
+Setting up a shared port has two components:
+
+1. Completing the request in the Equinix Metal console
+
+To request a connection in the [Equinix Metal portal](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#requesting-a-connection), open the Connections page from the IPs & Networks tab.
+
+![request connection](/docs/images/l2-connection-request.png?raw=true "request connection")
+
+2. Setting up the connection in Equinix Fabric
+
+Connections to Equinix Metal shared ports are handled through Equinix Fabric, so log in to the [Equinix Fabric portal](https://fabric.equinix.com/) and follow the [documentation steps](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#connecting-through-equinix-fabric)
+
+### Connecting the Metal VLAN to the Shared Port
+
+Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you can [follow these steps](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#connecting-vlans-to-shared-ports) for connecting the Primary Port to the Metal VLAN [created by terraform](/tf-equinix-metal-setup/main.tf#L18) at the previous step b).
+
+
+## D) Equinix Metal to Equinix Fabric,Layer2 & BGP Configuration
+
+
+1. Connect to Cisco CSR NE with [Putty](https://www.putty.org/) by using the ssh username & password, [generated with terraform](equinix_ne.tf#L29)   
+
+![putty equinix ne](/docs/images/putty-equinix-ne.png?raw=true "putty equinix ne")
+
+2. In this step we will configure a basic Layer 2 connection between Network Edge and Equinix Metal. The sub-interface on the Metal server with the IP address *172.16.0.100* has been already [created by terraform](/tf-equinix-metal-setup/templates/user_data.sh.tpl), we just have to proceed with the *Network Edge Configuration* by following the steps from [here](https://docs.equinix.com/en-us/Content/digital-config/DC-metal-NE-Layer2.htm). 
