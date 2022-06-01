@@ -33,7 +33,7 @@ Required steps to setup your environment for the lab:
 
 # Usage
 
-## A) Setup Equinix Network Edge Virtual Device
+## A) Setup Equinix Network Edge Virtual Device and GCP Interconnect
 
 1. Clone this project
 
@@ -102,7 +102,7 @@ Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you c
 ## D) Equinix Metal to Equinix Fabric, Layer2 & BGP Configuration
 
 
-1. Connect to Cisco CSR NE with [Putty](https://www.putty.org/ "test") by using the ssh username & password, [generated with terraform](equinix_ne.tf#L29 "test")
+1. Connect to Cisco CSR NE with [Putty](https://www.putty.org/) by using the ssh username & password, [generated with terraform](equinix_ne.tf#L29)
 
 ![putty equinix ne](/docs/images/putty-equinix-ne.png?raw=true "putty equinix ne")
 
