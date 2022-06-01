@@ -23,7 +23,7 @@ variable "metal_vlan_description" {
 variable "metal_vxlan" {
   description = "Metal vlan id"
   type        = number
-  default     = 1000
+  default     = 500
 }
 
 variable "hostname" {
