@@ -11,7 +11,7 @@ variable "project_id" {
 variable "metro" {
   description = "Equinix Metal metro code"
   type        = string
-  default     = "am"
+  default     = "fr"
 }
 
 variable "metal_vlan_description" {

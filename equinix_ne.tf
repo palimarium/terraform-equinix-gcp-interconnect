@@ -26,6 +26,14 @@ resource "equinix_network_device" "router" {
   self_managed      = false
 }
 
+resource "equinix_network_ssh_user" "router" {
+  count = var.eqx_ne_create_ne_device ? 1 : 0
+
+  username  = var.eqx_ne_ssh_user
+  password  = var.eqx_ne_ssh_pwd
+  device_ids = [ local.router_id ]
+}
+
 locals {
   router_id = var.eqx_ne_create_ne_device ? equinix_network_device.router[0].id : var.eqx_ne_device_id
 }

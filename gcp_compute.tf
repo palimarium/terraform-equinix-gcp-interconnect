@@ -14,7 +14,7 @@ resource "google_compute_address" "gcp-ip" {
 resource "google_compute_instance" "gcp-vm" {
  name         = format("%s-vm", lower(var.project_name))
  machine_type = var.gcp_instance_type
- zone         = data.google_compute_zones.available.names[0]
+ zone         = data.google_compute_zones.available.names[1]
 
  boot_disk {
    initialize_params {

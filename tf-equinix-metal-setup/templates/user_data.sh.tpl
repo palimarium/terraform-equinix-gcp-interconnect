@@ -19,7 +19,7 @@ EOF
 
 // create static route to GCP
 cat <<\EOF >> /etc/sysconfig/network-scripts/route-bond0.${METAL_VXLAN}
-10.240.0.0/24 via 172.16.0.50 dev bond0.1000
+10.200.0.0/24 via 172.16.0.50 dev bond0.${METAL_VXLAN}
 EOF
 
 systemctl restart network
