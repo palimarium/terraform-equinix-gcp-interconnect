@@ -1,7 +1,6 @@
-# Metal and Fabric
+# Equinix Metal BMS
 
-
-Basic Terraform module for creating an end-to-end connections from device nodes on Equinix Metal to Equinix colocation environments.
+Basic Terraform module for creating a Equinix Metal Server and attach it to a VLAN.
 
 This module will:
 1. Create a Metal VLAN
@@ -9,14 +8,27 @@ This module will:
 3. Attach the instance to the VLAN
 4. Run script in User Data to configure the Metal network interface(s)
 
-Network Connectivity is facilitated by Equinix Fabric
-- A-Side Equinix Fabric Port = Equinix Metal Dedicated Fabric Port
-- Z-Side Equinix Fabric Port = Equinix colo/Equinix-customer colo Fabric Port with a Service Profile
 
-![image](https://user-images.githubusercontent.com/67401553/132586191-f11eeff5-fc67-4727-9b81-ac1a91d0ac0e.png)
 
-Note: For Equinxi Metal API Key, a Personal API Key will need to be used to create the Metal Virtual Connection. 
+![GCP Equinix Metal diagram](../docs/images/DS-metalNE-diagram.png?raw=true "GCP Equinix Metal diagram")
 
+
+
+# Usage
+
+1. Use your text editor to set the required parameters inside [terraform.tfvars](terraform.tfvars).
+   ```sh
+   vim terraform.tfvars
+
+2. From the [tf-equinix-metal-setup](./) directory execute terraform
+
+   ```sh
+   terraform init
+   terraform plan
+   terraform apply -auto-approve
+
+
+
+---
 Product Documentation:
-- Equinix Fabric: https://docs.equinix.com/en-us/Content/Interconnection/Fabric/Fabric-landing-main.htm
 - Equinix Metal:  https://metal.equinix.com/developers/docs/
