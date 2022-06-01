@@ -102,7 +102,7 @@ Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you c
 ## D) Equinix Metal to Equinix Fabric, Layer2 & BGP Configuration
 
 
-1. Connect to Cisco CSR NE with [Putty](https://www.putty.org/) by using the ssh username & password, [generated with terraform](equinix_ne.tf#L29)   
+1. Connect to Cisco CSR NE with [Putty](https://www.putty.org/ "test") by using the ssh username & password, [generated with terraform](equinix_ne.tf#L29 "test")
 
 ![putty equinix ne](/docs/images/putty-equinix-ne.png?raw=true "putty equinix ne")
 
@@ -122,6 +122,9 @@ Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you c
 ![equinix ne bgp vrf cloud](/docs/images/equinix-ne-bgp-vrf-cloud.png?raw=true "equinix ne bgp vrf cloud")
 
 2. Check Google Cloud Router BGP routing table
+
+![gcp interconnect](/docs/images/equinix-demo-interconn-vlan.png?raw=true "gcp interconnect")
+
 
 ```
 ❯ gcloud compute routers get-status equinix-demo-interconn-router --region europe-west3 --project equinix-gcp-demo
