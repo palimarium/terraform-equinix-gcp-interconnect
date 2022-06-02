@@ -1,10 +1,10 @@
 # terraform-equinix-gcp-interconnect
 
-This lab aims to demonstrate how using the terraform Equinix provider, in conjunction with the Equinix Metal and Google provider, so you can fully automate the entire process of establishing a secure, direct connection between an Equinix bare metal server and Google Cloud.
+This tutorial aims to demonstrate how to use terraform Equinix provider, in conjunction with the Equinix Metal and Google provider, so you can fully automate the entire process of establishing a secure, direct connection between an Equinix bare metal server and Google Cloud.
 
-After completing the lab you will be able to communicate from an virtual machine in GCP (GCE instance) to a bare metal server in Equinix BMaaS Platform, using private addressing.
+After completing the tutorial you will be able to communicate from a virtual machine in GCP (GCE instance) to a bare metal server in Equinix (BMaaS Platform), using private addressing.
 
-![GCP Equinix Fabric diagram](/docs/images/architecture-diagram-equinix-gcp.png?raw=true "GCP Equinix Fabric diagram")
+![GCP Equinix Fabric diagram](/docs/images/architecture-diagram-equinix-gcp.png?raw=true "GCP Equinix Fabric architecture diagram")
 
 
 ---
@@ -12,12 +12,13 @@ After completing the lab you will be able to communicate from an virtual machine
 ## Requirements
 
 * Equinix Fabric Account:
-  - Permission to create Connection and Network Edge devices
+  - You can create a 45-day trial account by following this [guide](https://readiness.equinix.com/Content/Interconnection/NE/NE-2022-2/NE_FLD_Improved_Customer_Trials.pdf).
+  - Permission to create Connection and Network Edge devices.
   - Generate Client ID and Client Secret key, from: https://developer.equinix.com/
 * Equinix Metal Account:
-  - A user-level API key for the Equinix Metal API  
+  - A user-level API key for the Equinix Metal API.  
 * GCP Account: 
-  - Permission to create a project or select one already created
+  - Permission to create a project or select one already created.
   - Enable billing.
   - Enable APIs: Compute Engine API, and Cloud Deployment Manager API.
 
@@ -25,17 +26,17 @@ After completing the lab you will be able to communicate from an virtual machine
 
 ## Setup
 
-Required steps to setup your environment for the lab:
+Required steps to setup your environment for the tutorial:
 
 * Install and setup Google Cloud SDK [Installing Google Cloud SDK](https://cloud.google.com/sdk/docs/install). Skip this step if you are using Google cloud shell.
 * Install [jq for Linux](https://stedolan.github.io/jq/). Skip this step if you are using Google cloud shell.
-* [generate a least priviledge Service Account](/tf-service-acccount-chain-setup.sh) for Impersonation with Terraform
+* [generate a least priviledge Service Account](/tf-service-acccount-chain-setup.sh) for Impersonation with Terraform.
 
 # Usage
 
 ## A) Setup Equinix Network Edge Virtual Device and GCP Interconnect
 
-1. Clone this project
+1. Clone this project.
 
    ```sh
    mkdir -p $HOME/Workspace/demo-gcp-interconnect; cd $HOME/Workspace/demo-gcp-interconnect
@@ -47,13 +48,13 @@ Required steps to setup your environment for the lab:
    cd terraform-equinix-gcp-interconnect
    vim terraform.tfvars
 
-3. Create terraform-runner GCP Service Account 
+3. Create terraform-runner GCP Service Account. 
     ```sh
    ./tf-service-acccount-chain-setup.sh
 
 ![terraform runner SA](/docs/images/execute_tf-service-acccount-chain-setup.png?raw=true "terraform runner SA")
 
-4. From the TF directory execute terraform
+4. From the TF directory execute terraform.
 
    ```sh
    terraform init
@@ -70,7 +71,7 @@ Required steps to setup your environment for the lab:
    cd tf-equinix-metal-setup
    vim terraform.tfvars
 
-2. From the [tf-equinix-metal-setup](/tf-equinix-metal-setup/) directory execute terraform
+2. From the [tf-equinix-metal-setup](/tf-equinix-metal-setup/) directory execute terraform.
 
    ```sh
    terraform init
@@ -80,21 +81,21 @@ Required steps to setup your environment for the lab:
 ![terraform apply equinix metal](/docs/images/terraform-apply-equinix-metal.png?raw=true "terraform apply equinix metal")
 
 
-## C) Setting Up a Shared Port
+## C) Setup a Shared Port Connection between Equinix Metal and Equinix Fabric NE
 
 Setting up a shared port has two components:
 
-1. Completing the request in the Equinix Metal console
+1. Completing the request in the Equinix Metal console.
 
-To request a connection in the [Equinix Metal portal](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#requesting-a-connection), open the Connections page from the IPs & Networks tab.
+To request a connection in the [Equinix Metal portal](https://console.equinix.com/), open the Connections page from the [IPs & Networks tab](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#requesting-a-connection).
 
 ![request connection](/docs/images/l2-connection-request.png?raw=true "request connection")
 
-2. Setting up the connection in Equinix Fabric
+2. Setting up the connection in Equinix Fabric.
 
-Connections to Equinix Metal shared ports are handled through Equinix Fabric, so log in to the [Equinix Fabric portal](https://fabric.equinix.com/) and follow the [documentation steps](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#connecting-through-equinix-fabric)
+Connections to Equinix Metal shared ports are handled through Equinix Fabric, so log in to the [Equinix Fabric portal](https://fabric.equinix.com/) and follow the [documentation steps.](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#connecting-through-equinix-fabric)
 
-### Connecting the Metal VLAN to the Shared Port
+### ***Connecting the Metal VLAN to the Shared Port***
 
 Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you can [follow these steps](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#connecting-vlans-to-shared-ports) for connecting the Primary Port to the Metal VLAN [created by terraform](/tf-equinix-metal-setup/main.tf#L18) at the previous step b).
 
@@ -102,13 +103,13 @@ Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you c
 ## D) Equinix Metal to Equinix Fabric, Layer2 & BGP Configuration
 
 
-1. Connect to Cisco CSR NE with [Putty](https://www.putty.org/) by using the ssh username & password, [generated with terraform](equinix_ne.tf#L29)
+1. Connect to Cisco CSR NE with [Putty](https://www.putty.org/) by using the ssh username & password, [generated with terraform.](equinix_ne.tf#L29)
 
 ![putty equinix ne](/docs/images/putty-equinix-ne.png?raw=true "putty equinix ne")
 
-2. In this step we will configure a basic Layer 2 connection between Network Edge and Equinix Metal. The sub-interface on the Metal server with the IP address *172.16.0.100* has been already [created by terraform](/tf-equinix-metal-setup/templates/user_data.sh.tpl), we just have to proceed with the *Network Edge Configuration* by following the steps from [here](https://docs.equinix.com/en-us/Content/digital-config/DC-metal-NE-Layer2.htm).
+2. In this step we will configure a basic Layer 2 connection between Network Edge and Equinix Metal. The sub-interface on the Metal server with the IP address `172.16.0.100` has been already [created by terraform](/tf-equinix-metal-setup/templates/user_data.sh.tpl), we just have to proceed with the *Network Edge Configuration* by following the steps from [here](https://docs.equinix.com/en-us/Content/digital-config/DC-metal-NE-Layer2.htm).
 
-3. In this step we will configure BGP on Cisco CSR NE device for advertising also the *172.16.0.0/24* network
+3. In this step we will configure BGP on Cisco CSR NE device for advertising the `172.16.0.0/24`  network
 
 
 ![equinix ne bgp config](/docs/images/cisco-ne-bgp-configurations.png?raw=true "equinix ne bgp config")
@@ -117,11 +118,11 @@ Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you c
 
 ## E) Check if connectivity is in place and if we can ping from each side
 
-1. Check Cisco CSR NE, BGP routing table
+1. Check Cisco CSR NE, BGP routing table.
 
 ![equinix ne bgp vrf cloud](/docs/images/equinix-ne-bgp-vrf-cloud.png?raw=true "equinix ne bgp vrf cloud")
 
-2. Check Google Cloud Router BGP routing table
+2. Check Google Cloud Router BGP routing table.
 
 ![gcp interconnect](/docs/images/equinix-demo-interconn-vlan.png?raw=true "gcp interconnect")
 
@@ -174,12 +175,12 @@ result:
   network: https://www.googleapis.com/compute/v1/projects/equinix-gcp-demo/global/networks/equinix-demo-gcp-network
 ```
 
-3. Ping from Equinix Metal Server to Google Cloud GCE-VM
+3. Ping from `Equinix Metal Server(172.16.0.100)` to `Google Cloud GCE-VM(10.200.0.100)`.
 
 
 ![ping from bms to gcp](/docs/images/ping-metal-to-gcp.png?raw=true "ping from bms to gcp")
 
 
-4. Ping from Google Cloud GCE-VM to Equinix Metal Server 
+4. Ping from `Google Cloud GCE-VM(10.200.0.100)` to `Equinix Metal Server(172.16.0.100)`. 
 
 ![ping from gcp to bms](/docs/images/ping-gcp-vm-to-metal-bms.png?raw=true "ping from gcp to bms")
