@@ -36,7 +36,7 @@ Required steps to setup your environment for the tutorial:
 
 ## A) Setup Equinix Network Edge Virtual Device and GCP Interconnect
 
-1. Clone this project.
+1. Clone tutorial project.
 
    ```sh
    mkdir -p $HOME/Workspace/demo-gcp-interconnect; cd $HOME/Workspace/demo-gcp-interconnect
@@ -97,7 +97,7 @@ Connections to Equinix Metal shared ports are handled through Equinix Fabric, so
 
 ### ***Connecting the Metal VLAN to the Shared Port***
 
-Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you can [follow these steps](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#connecting-vlans-to-shared-ports) for connecting the Primary Port to the Metal VLAN [created by terraform](/tf-equinix-metal-setup/main.tf#L18) at the previous step b).
+Once the L2 connection is ready, between Equinix Metal and Equinix Fabric, you can [follow these steps](https://metal.equinix.com/developers/docs/equinix-interconnect/shared-ports/#connecting-vlans-to-shared-ports) for connecting the Primary Port to the Metal VLAN [created by terraform](/tf-equinix-metal-setup/main.tf#L18) at the previous step B).
 
 
 ## D) Equinix Metal to Equinix Fabric, Layer2 & BGP Configuration
